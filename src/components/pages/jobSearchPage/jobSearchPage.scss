@@ -1,0 +1,11 @@
+.job__content {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 315px 773px;
+    column-gap: 28px;
+    align-items: start;
+}
+
+.pag__wrapper {
+    margin-top: 40px;
+}

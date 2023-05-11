@@ -1,0 +1,94 @@
+@import '../../style/variables.scss';
+
+
+.job__filter {
+    
+    padding: 20px;
+    width: 315px;
+    min-height: 360px;
+    display: block;
+    border: 1px solid #EAEBED;
+    border-radius: 12px;
+    background: #FFFFFF;
+    
+    &-title_wrapper {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-title {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 20px;
+        color: $black;
+    }
+
+    &-reset {
+        cursor: pointer;
+        display: flex;
+        font-weight: 500;
+        font-size: 14px;
+        color: $text-gray;
+        transition: all .2s ease;
+
+        &:hover {
+            color: $black;
+            transition: all .3s ease;
+        }
+
+        &:active {
+            transform: scale(.95);
+        }
+
+        span {
+            transform: translateY(-3px);
+            margin-left: 7px;
+            font-weight: 400;
+            font-size: 18px;
+        }
+    }
+
+    &-reset {
+        border: none;
+        background-color:#FFFFFF;
+    }
+
+    &-industry {
+        width: 275px;
+    }
+
+    &-salary {
+        width: 275px;
+
+        &_arrows {
+            position: relative;
+            width: 12px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            svg {
+
+                &:hover {
+                    path {
+                        stroke: $black;
+                        transform: translateY(-1px) translateX(-1px) scale(1.2);
+
+                    }
+                }
+
+                &:active {
+                    path {
+                        transform: scale(.97);
+                    }
+                }
+            }
+            
+        }
+    }
+
+    &-apply {
+        margin-top: 20px;
+    }
+}

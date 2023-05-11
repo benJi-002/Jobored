@@ -1,0 +1,112 @@
+@import '../../style/variables.scss';
+
+.job {
+
+    &__list {
+        margin-top: 16px;
+        // grid-column: 2/3;
+    }
+
+    &__grid {
+        display: grid;
+        grid-template-rows: repeat(4, 137px);
+        row-gap: 16px;
+
+    }
+
+    &__item {
+        position: relative;
+        padding: 24px;
+        width: 773px;
+        // height: 137px;
+        background-color: #fff;
+        border: 1px solid #EAEBED;
+        border-radius: 12px;   
+
+        &-star {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+
+            path {
+                transition: all .3s ease;
+            }
+
+            &:hover {
+                path {
+                    stroke: $main-color;
+                    transition: all .3s ease;
+                    transform: translatex(-2px) scale(1.1);
+                }
+            }
+            
+            &:active {
+                path {
+                    stroke: $main-color;
+                    fill: $main-color;
+                    transition: all .3s ease;
+                    transform: scale(1);
+                }
+            }
+
+            &.active {
+                path {
+                    stroke: $main-color;
+                    fill: $main-color;
+                }
+            }
+        }
+    }
+
+    &__title {
+        font-weight: 600;
+        font-size: 20px;
+        color: $main-color;
+    }
+
+    &__descr {
+        margin-top: 12px;
+        display: flex;
+        gap: 14px;
+
+        &-salary {
+            position: relative;
+            font-weight: 600;
+            font-size: 16px;
+            color: $black;
+        }
+
+        &-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 100%;
+            background-color: #7B7C88;
+            align-items: center;
+
+            &_wrapper {
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        &-schedule {
+            font-weight: 400;
+            font-size: 16px; 
+            color: $black   
+        }
+    }
+
+    &__location {
+        margin-top: 12px;
+        display: flex;
+        gap: 10px;
+
+        &-name {
+            font-weight: 400;
+            font-size: 16px;
+            color: $black;
+        }
+    }
+
+
+}

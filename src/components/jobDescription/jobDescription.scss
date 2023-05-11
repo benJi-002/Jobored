@@ -1,0 +1,87 @@
+@import '../../style/variables.scss';
+
+.job {
+    
+    &__list.descr {
+        width: 773px;
+        margin: 0 auto;
+    }
+
+    &__grid.descr {
+        grid-template-rows: minmax(157px, auto);
+        row-gap: 20px;
+    }
+
+    &__item.descr {
+
+        &:nth-child(1) {
+            height: 157px;
+    
+        }
+    }
+
+    &__title.descr {
+        font-weight: 700;
+        font-size: 28px;
+        color: $black;
+    }
+
+    &__descr.descr {
+        margin-top: 16px;
+    }
+
+    &__descr-salary.descr {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    &__descr-schedule.descr {
+        font-size: 20px;
+        line-height: 20px; 
+    }
+    
+    &__location.descr {
+        margin: 17px 0 0 2px;
+    }
+
+    
+}
+
+.descr {
+
+    &__title {
+        margin-top: 20px;
+        font-weight: 700;
+        font-size: 20px; 
+        line-height: 20px;
+        color: $black; 
+
+        &:nth-child(1) {
+            margin-top: 0;
+        }
+    }  
+
+    &__list {
+        margin-top: 16px;
+        
+        li {
+            margin-left: 24px;
+            font-weight: 400;
+            font-size: 16px;
+            color: $black;
+            line-height: 22px;
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                background-color: $black;
+                border-radius: 100%;
+                top: 9px;
+                left: -15px;
+            }
+        }
+    }
+}

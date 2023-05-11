@@ -1,0 +1,29 @@
+@import '../../style/variables.scss';
+
+.empty {
+
+    &__wrapper {
+        margin: 120px auto 0 auto;
+        width: 328px;
+    }
+
+    &__human {
+        display: block;
+        margin: 0 auto;
+        width: 240px;
+        height: 230.27px;
+    }
+
+    &__text {
+        margin-top: 32px;
+        font-weight: 700;
+        font-size: 24px;
+        text-align: center;
+        color: #343A40;
+    }
+
+    &__button {
+        margin: 32px auto 0 auto;
+        width: 164px;
+    }
+}
