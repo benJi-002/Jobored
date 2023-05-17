@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
 import Spinner from '../spinner/Spinner';
-import SkeletonFrame from '../skeleton/SkeletonFrame';
+import {SkeletonForCards} from '../skeleton/SkeletonFrame';
 import useJoboredService from '../../services/JoboredService';
 import './jobFavorites.scss';
 
@@ -133,7 +133,7 @@ const JobFavorites = (props) => {
         if (loading && !newItemLoading) {      
             return (
                 <ul className="job__grid" >
-                    <SkeletonFrame count={itemsCount}/>
+                    <SkeletonForCards count={itemsCount}/>
                 </ul>
             )
         } else {

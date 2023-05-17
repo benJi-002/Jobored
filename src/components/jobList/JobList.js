@@ -1,10 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Spinner from '../spinner/Spinner';
 import empty from '../../resources/balloon_empty_state.svg';
 import location from '../../resources/location.svg';
-import SkeletonFrame from '../skeleton/SkeletonFrame';
+import {SkeletonForCards} from '../skeleton/SkeletonFrame';
 import './jobList.scss';
 
 const JobList = (props) => {
@@ -14,8 +14,6 @@ const JobList = (props) => {
     const itemRefs = useRef([]);
 
     let favItems = [];
-
-    const description = useParams();
     
 
     useEffect(() => {
@@ -42,7 +40,6 @@ const JobList = (props) => {
             .replace(/[,]+/g, " ")
             .split(' ')
         list = list.map(item => Number(item))
-        console.log('------------------')
         console.log(list)
         return list
     }
@@ -55,13 +52,13 @@ const JobList = (props) => {
 
         if ( itemRefs.current[id].classList.contains('active')) {
             itemRefs.current[id].classList.remove('active');
+            
             favItems = favItems.filter((remote) => remote !== id );
-            console.log(favItems)
             localStorage.setItem('favoritesIds', favItems);
         } else {
             itemRefs.current[id].classList.add('active');
+
             favItems.push(id);
-            console.log(favItems)
             localStorage.setItem('favoritesIds', favItems);
         }
     }
@@ -78,7 +75,7 @@ const JobList = (props) => {
                     key={item.id}
                     
                 >
-                    <Link to={`/${'description'}`}>
+                    <Link to={`/description/${item.id}`}>
                         <span className="job__title">{item.vacancy}</span> 
                     </Link>
                     
@@ -114,7 +111,7 @@ const JobList = (props) => {
         if (loading && !newItemLoading) {      
             return (
                 <ul className="job__grid" >
-                    <SkeletonFrame count={4}/>
+                    <SkeletonForCards count={4}/>
                 </ul>
             )
 /*         } else if (jobsList === []) {

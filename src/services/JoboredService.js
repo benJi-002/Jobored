@@ -56,7 +56,7 @@ const useJoboredService = () => {
             'X-Api-App-Id': `${_xApiAppId}`
         });
 
-        // console.log(res.objects.map(_transformJobData))
+        // console.log(_transformJobData(res))
         // console.log(res)
 
         return _transformJobData(res)
@@ -75,18 +75,22 @@ const useJoboredService = () => {
 
         return  res.map(_transformCataloguesData)
     }
+/* 
+    const getJobDescription = async (id) => {
+        const res = await request(`${_apiBase}/vacancies/${id}`, 
+        'GET', null, 
+        {
+            'Content-Type': 'application/json', 
+            'x-secret-key': `${_xSecretKey}`, 
+            Authorization: `${_authorization}`,
+            'X-Api-App-Id': `${_xApiAppId}`
+        });
 
-    // const getJobDescription = async (id) => {
-    //     const res = await request(`${_apiBase}/`, 
-    //     'GET', null, 
-    //     {
-    //         'Content-Type': 'application/json', 
-    //         'x-secret-key': `${_xSecretKey}`, 
-    //         Authorization: `${_authorization}`,
-    //         'X-Api-App-Id': `${_xApiAppId}`
-    //     });
-    //     return _transformJobData(res.data.results[0]);
-    // }
+        console.log({description: res.vacancyRichText});
+        
+        return {description: res.vacancyRichText};
+    } */
+
     const _transformCataloguesData = (catalogues) => {
 
         const limForCatalogues = (catalogues, trim) => {
@@ -138,11 +142,12 @@ const useJoboredService = () => {
             firm: job.firm_name,
             from: job.payment_from,
             to: job.payment_to,
-            salary: salaryDisplay(job.payment_from, job.payment_to, job.currency)
+            salary: salaryDisplay(job.payment_from, job.payment_to, job.currency),
+            description: job.vacancyRichText
         }
     }
 
-    return {getAuthorization, getAllVacancies, getVacancyById, getCatalogues,/* getJobDescription, */ loading, error, clearError}
+    return {getAuthorization, getAllVacancies, getVacancyById, getCatalogues, /* getJobDescription, */ loading, error, clearError}
 }
 
 export default useJoboredService;

@@ -7,6 +7,7 @@ import { JobSearchPage, JobPage, FavoritesPage, EmptyStatePage } from '../pages'
 const App = () => {
 
     localStorage.setItem('favoritesIds', [])
+    
 
     return (
         <Router>
@@ -16,7 +17,7 @@ const App = () => {
                     <Routes>
                         <Route path='/' element={<JobSearchPage/>}/>
 
-                        <Route path='/description' element={<JobPage/>}/>
+                        <Route path='/description/:jobId' element={<JobPage/>}/>
 
                         <Route path='/favorites' element={<FavoritesPage/>}/>
 
