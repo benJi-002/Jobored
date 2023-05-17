@@ -15,7 +15,7 @@ const EmptyState = () => {
                 <Link to={'/'}>
                     <Button
                         gradient
-                        styles={ (theme) => ({
+                        styles={{
                             root: {
                                 backgroundColor: '#DEECFF',
                                 borderRadius: '8px',
@@ -25,12 +25,11 @@ const EmptyState = () => {
                                 fontWeight: '600',
                                 fontSize: '14px',
                                 color: '#3B7CD3',
-                                transition: 'all .3s ease',
-                                '&:not([data-disabled])': theme.fn.hover({
-                                    backgroundColor: theme.fn.darken('#DEECFF', 0.07),
-                                }),
+                                transition: 'all .2s ease',
+                                '&:hover': {backgroundColor: '#d7e2f2'},
+                                '&:active': {backgroundColor: '#c8d3e3'}
                             }
-                        })}
+                        }}
                     >
                         Поиск Вакансий
                     </Button>

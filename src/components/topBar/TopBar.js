@@ -9,16 +9,16 @@ import logo from '../../resources/Union.svg';
 
 const TopBar = () => {
 
-    const {getAuthorization} = useJoboredService();
+    // const {getAuthorization} = useJoboredService();
     
-    useEffect(() => {
-        getAuthorization()
-            .then(onAuthorization);
-    }, [])
+    // useEffect(() => {
+    //     getAuthorization()
+    //         .then(onAuthorization);
+    // }, [])
 
-    const onAuthorization = (token) => {
-        localStorage.setItem('_accessToken', token);
-    }
+    // const onAuthorization = (token) => {
+    //     localStorage.setItem('_accessToken', token);
+    // }
 
     return (
         <header className='topBar__header'>

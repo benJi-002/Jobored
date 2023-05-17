@@ -8,6 +8,12 @@ import './favoritesPage.scss'
 const FavoritesPage = () => {
 
     const [pageCount, setPageCount] = useState(1);
+    const [selectedPage, setSelectedPage] = useState(0);
+
+    const onPageSelectedFromFavorite = (page) => {
+        setSelectedPage(page - 1)
+        // console.log(selectedPage)
+    }
 
     const onSetCountPagesFromFavorite = (count) => {
         setPageCount(count)
@@ -15,9 +21,9 @@ const FavoritesPage = () => {
 
     return (
         <>
-            <JobFavorites onSetCountPages={onSetCountPagesFromFavorite}/>
+            <JobFavorites page={selectedPage} onSetCountPages={onSetCountPagesFromFavorite}/>
             <div className="pag__wrapper favorites">
-                <JobPagination count={pageCount}/>
+                <JobPagination onPageSelected={onPageSelectedFromFavorite} count={pageCount}/>
             </div>
         </>
     )

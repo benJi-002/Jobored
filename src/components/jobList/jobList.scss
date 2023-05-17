@@ -25,6 +25,10 @@
 
         &-star {
             position: absolute;
+            border: none;
+            background-color: inherit;
+            width: 24px;
+            height: 24px;
             top: 24px;
             right: 24px;
 
@@ -62,6 +66,13 @@
         font-weight: 600;
         font-size: 20px;
         color: $main-color;
+        transition: all .1s ease;
+
+        &:hover {
+            color: #3B7CD3;
+            transition: all .1s ease;
+        }
+        
     }
 
     &__descr {

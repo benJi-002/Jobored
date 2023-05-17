@@ -1,30 +1,94 @@
-import { Select, Button } from '@mantine/core';
+import { useRef, useState, useEffect } from 'react';
+import { NumberInput, Select, Button } from '@mantine/core';
 
+import useJoboredService from '../../services/JoboredService';
 import './jobFilter.scss';
 
 
 
 
-const JobFilter = () => {
+const JobFilter = (props) => {
+    
+
+    
+    const arrowRef = useRef([]);
+
+    const {getCatalogues} = useJoboredService();
+
+    const {selectVal, setSelectVal, firstInputVal, setFirstInputVal, secondInputVal, setSecondInputVal, cataloguesList, setCataloguesList, setCatalogueKey, onUseFilter, setFilterLoaded, onRequest, selectedPage, setSearchInputVal} = props
+
+    useEffect(() => {
+        onRequestForFilter(true);
+    },[])
+
+    const onRequestForFilter = (initial) => {
+        getCatalogues()
+            .then(onCataloguesListLoaded)
+    }
+
+    const onCataloguesListLoaded = (cataloguesList) => {
+        setCataloguesList([...cataloguesList]);
+    }
+
+
+    const OnClearAll = (clSelect, clCatalogueKey, clFirstInput, clSecondInput) => {
+        clSelect(select => '');
+        clCatalogueKey(key => 0);
+        clFirstInput(firstInput => '');
+        clSecondInput(secondInput => '');
+        
+        setFilterLoaded(filterLoaded => false);
+        setSearchInputVal(searchInputVal => '');
+        onRequest(true, selectedPage - 1);
+        window.scrollTo(0, 0);
+    }
+    
+    const OnChangeArrow = (e) => {
+        if (arrowRef.current[0].classList.contains('active')) {
+            arrowRef.current[0].classList.remove('active');
+        } else if (e.target === arrowRef.current[1] ) {
+            arrowRef.current[0].classList.add('active');
+        } else {
+            arrowRef.current[0].classList.remove('active');
+        }
+    } 
 
     return (
-        <div className="job__filter">
+        <div onClick={(e) => OnChangeArrow(e)} className="job__filter">
             <div className='job__filter-title_wrapper'>
                 <h2 className='job__filter-title'>Фильтры</h2>
 
-                <button className='job__filter-reset'>Сбросить все <span>×</span></button>
+                <button 
+                    className='job__filter-reset'
+                    onClick={() => OnClearAll(setSelectVal, setCatalogueKey, setFirstInputVal, setSecondInputVal)}
+                >
+                    Сбросить все <span>×</span>
+                </button>
             </div>
 
             <div className="job__filter-industry">
-                <Industry/>
+                <IndustryInput
+                    selectVal={selectVal}
+                    setSelectVal={setSelectVal}
+                    arrowRef={arrowRef}
+                    cataloguesList={cataloguesList}
+                    setCatalogueKey={setCatalogueKey}
+                />
             </div>
 
             <div className="job__filter-salary">
-                <Salary/>
+                <SalaryInput 
+                    firstInputVal={firstInputVal}
+                    setFirstInputVal={setFirstInputVal}
+                    secondInputVal={secondInputVal}
+                    setSecondInputVal={setSecondInputVal}
+                />
             </div>
 
             <div className='job__filter-apply'>
                 <Button
+                    onClick={() => {onUseFilter()}}
+
                     styles={{
                         root: {
                             backgroundColor: '#5E96FC',
@@ -34,7 +98,9 @@ const JobFilter = () => {
                             fontFamily: 'inherit',
                             fontWeight: '500',
                             fontSize: '14px',
-                            transition: 'all .3s ease'
+                            transition: 'all .2s ease',
+                            '&:hover': {backgroundColor: '#92C1FF'},
+                            '&:active': {backgroundColor: '#3B7CD3'},
                         }
                     }}
                 >
@@ -45,30 +111,52 @@ const JobFilter = () => {
     )
 }
 
-const Industry = () => {
+const IndustryInput = (props) => {
+
+
+    const {selectVal, setSelectVal, arrowRef, cataloguesList, setCatalogueKey} = props
+
+    const onChangeSelect = (value) => {
+        setSelectVal(selectVal => value)
+        onChangeCatalogueKey(value)
+    }
+
+    const onChangeCatalogueKey = (value) => {
+        cataloguesList.forEach((item) => { 
+            if (item.catalogues === value) {
+                setCatalogueKey(key => item.key)
+            }
+        });
+    }
+
     return (
         <>
             <Select
-                data={['React', 'Angular', 'Svelte', 'Vue', 'Angular', 'Svelte', 'Vue', 'Angular']}
-                placeholder="Выберете отрасль"
+                onChange={(value) => onChangeSelect(value)}
+                ref={el => arrowRef.current[1] = el}
+
+                data={cataloguesList.map(item => item.catalogues)}
+                value={selectVal}
+                placeholder="Выберите отрасль"
                 label="Отрасль"
                 searchable
                 nothingFound="Отрасль отсутствует"
                 dropdownPosition="bottom"
                 transitionProps={
-                    { transition: 'pop-top-left', duration: 100, timingFunction: 'ease' }
+                    { transition: 'pop-top-left', duration: 300, timingFunction: 'ease' }
                 }
                 rightSection={
                     <svg width="16" height="8" viewBox="0 0 16 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 0.999999L7.21905 6.33061C7.66844 6.7158 8.33156 6.7158 8.78095 6.33061L15 1" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path  ref={el => arrowRef.current[0] = el} d="M1 0.999999L7.21905 6.33061C7.66844 6.7158 8.33156 6.7158 8.78095 6.33061L15 1" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
                     </svg>
                 }
-                rightSectionWidth={14}
+                rightSectionWidth={48}
 
                 styles={{
                     root: {
                         fontFamily: 'inherit',
                         lineHeight: '0',
+
                     },
                     input: {
                         paddingLeft: '10px',
@@ -79,6 +167,7 @@ const Industry = () => {
                         fontSize: '14px',
                         border: '1px solid #D5D6DC',
                         borderRadius: '8px',
+                        transition: 'all .2s ease',
                     },
                     dropdown: {
                         borderRadius: '8px'
@@ -88,10 +177,21 @@ const Industry = () => {
                         fontWeight: '400',
                         fontSize: '14px',
                         width: '255px',
+                        height: '36px',
+                        borderRadius: '8px',
                         lineHeight: '1.55',
-                    },
-                    rightSection: {
-                        marginRight: '18px'
+                        '&:hover': {
+                            backgroundColor: '#DEECFF', 
+                            transition: 'all .2s ease',
+                        },
+                        '&[data-selected]': {
+                            '&, &:hover': {
+                                backgroundColor: '#5E96FC',
+                                color: '#FFFFFF'
+                                },
+
+                        },
+                        '&[data-hovered]': {}
                     },
                     label: {
                         marginTop: '30px',
@@ -107,33 +207,47 @@ const Industry = () => {
     )
 }
 
-const Salary = () => {
+const SalaryInput = (props) => {
+
+    const clickUp = (state, setState) => {
+        setState(state => +state + 1000)
+    }
+    
+    const clickDown = (state, setState) => {
+        if (state > 0) {
+            setState(state => +state - 1000)
+        } else {
+            setState(state => 0)
+        }
+    }
+
+    const {firstInputVal, setFirstInputVal, secondInputVal, setSecondInputVal} = props;
+
     return (
         <>
-            <Select
-                data={['0', '10000', '20000', '30000', '40000', '50000', '70000', '100000', '150000', '200000', '300000']}
+            <NumberInput
+                onChange={(value) => {setFirstInputVal(value)}}
+                
                 placeholder="От"
                 label="Оклад"
-                searchable
-                dropdownPosition="bottom"
-                transitionProps={
-                    { transition: 'pop-top-left', duration: 100, timingFunction: 'ease' }
-                }
+                value={firstInputVal}
+                min={0}
+                step={1000}
                 rightSection={
                     <div className='job__filter-salary_arrows'>
 
-                        <svg  width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={() => clickUp(firstInputVal, setFirstInputVal)}  width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.50006 4.5L5.39054 1.83469C5.16584 1.6421 4.83428 1.6421 4.60959 1.83469L1.50006 4.5" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
                         </svg>
 
-                        <svg  width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={() => clickDown(firstInputVal, setFirstInputVal)} width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.49994 1.5L4.60946 4.16531C4.83416 4.3579 5.16572 4.3579 5.39041 4.16531L8.49994 1.5" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
                         </svg>
 
                     </div>  
                 }
-                rightSectionWidth={12}
-
+                rightSectionWidth={36}
+                
                 styles={{
                     root: {
                         fontFamily: 'inherit',
@@ -148,9 +262,11 @@ const Salary = () => {
                         fontSize: '14px',
                         border: '1px solid #D5D6DC',
                         borderRadius: '8px',
-                    },
-                    dropdown: {
-                        borderRadius: '8px'
+                        transition: 'all .2s ease',
+                        '&:hover': {
+                            border: '1px solid #5E96FC', 
+                            transition: 'all .2s ease',
+                        }
                     },
                     item: {
                         fontFamily: 'inherit',
@@ -158,9 +274,6 @@ const Salary = () => {
                         fontSize: '14px',
                         width: '255px',
                         lineHeight: '1.55',
-                    },
-                    rightSection: {
-                        marginRight: '11px'
                     },
                     label: {
                         marginTop: '20px',
@@ -169,31 +282,30 @@ const Salary = () => {
                         fontSize: '16px',
                         lineHeight: '19px',
                         color: '#232134',
-                    },
+                    }
                 }}
-            />
-            <Select
-                data={['10000', '20000', '30000', '40000', '50000', '70000', '100000', '150000', '200000', '300000', '500000']}
+                />
+            <NumberInput
+                onChange={(value) => {setSecondInputVal(value)}}
+
                 placeholder="До"
-                searchable
-                dropdownPosition="bottom"
-                transitionProps={
-                    { transition: 'pop-top-left', duration: 100, timingFunction: 'ease' }
-                }
+                value={secondInputVal}
+                min={0}
+                step={1000}
                 rightSection={
                     <div className='job__filter-salary_arrows'>
 
-                        <svg  width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={() => clickUp(secondInputVal, setSecondInputVal)} width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.50006 4.5L5.39054 1.83469C5.16584 1.6421 4.83428 1.6421 4.60959 1.83469L1.50006 4.5" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
                         </svg>
 
-                        <svg  width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg onClick={() => clickDown(secondInputVal, setSecondInputVal)} width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M1.49994 1.5L4.60946 4.16531C4.83416 4.3579 5.16572 4.3579 5.39041 4.16531L8.49994 1.5" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
                         </svg>
 
                     </div>  
                 }
-                rightSectionWidth={12}
+                rightSectionWidth={36}
 
                 styles={{
                     root: {
@@ -209,9 +321,11 @@ const Salary = () => {
                         fontSize: '14px',
                         border: '1px solid #D5D6DC',
                         borderRadius: '8px',
-                    },
-                    dropdown: {
-                        borderRadius: '8px'
+                        transition: 'all .2s ease',
+                        '&:hover': {
+                            border: '1px solid #5E96FC', 
+                            transition: 'all .2s ease',
+                        }
                     },
                     item: {
                         fontFamily: 'inherit',
@@ -219,9 +333,6 @@ const Salary = () => {
                         fontSize: '14px',
                         width: '255px',
                         lineHeight: '1.55',
-                    },
-                    rightSection: {
-                        marginRight: '11px'
                     },
                     label: {
                         fontWeight: '700',

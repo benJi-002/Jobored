@@ -31,13 +31,15 @@
         color: $text-gray;
         transition: all .2s ease;
 
-        &:hover {
-            color: $black;
-            transition: all .3s ease;
-        }
 
+        &:hover {
+            color: #92C1FF;
+            transition: all .2s ease;
+        }
+        
         &:active {
-            transform: scale(.95);
+            color: #3B7CD3;
+            transition: all .1s ease;
         }
 
         span {
@@ -57,6 +59,18 @@
         width: 275px;
     }
 
+    // селектор для копки вниз
+    .mantine-7c7vou {
+        path {
+            transition: all .2s ease;
+        }
+        path.active {
+            stroke: $main-color;
+            transform: rotateX(180deg) translateY(-8px);
+            transition: all .2s ease;
+        }
+    }
+
     &-salary {
         width: 275px;
 
@@ -69,19 +83,24 @@
             justify-content: space-between;
 
             svg {
-
                 &:hover {
                     path {
-                        stroke: $black;
+                        stroke: #92C1FF;
                         transform: translateY(-1px) translateX(-1px) scale(1.2);
-
+                        transition: all .1s ease;
                     }
                 }
-
+                
                 &:active {
                     path {
+                        stroke: #5E96FC;
                         transform: scale(.97);
+                        transition: all .1s ease;
                     }
+                }
+                
+                path {
+                    transition: all .2s ease;
                 }
             }
             
