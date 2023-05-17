@@ -4,8 +4,8 @@ import { Link, NavLink } from 'react-router-dom'
 import useJoboredService from '../../services/JoboredService';
 import './topBar.scss';
 
-import jobored from '../../resources/Jobored.svg';
-import logo from '../../resources/Union.svg';
+import jobored from '../../resources/jobored.svg';
+import logo from '../../resources/union.svg';
 
 const TopBar = () => {
 

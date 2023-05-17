@@ -2,7 +2,7 @@ import { Button } from '@mantine/core';
 import { Link } from 'react-router-dom';
 
 import './emptyState.scss';
-import human from '../../resources/EmptyHuman.svg';
+import human from '../../resources/empty-human.svg';
 
 
 const EmptyState = () => {
