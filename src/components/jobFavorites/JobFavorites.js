@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 
-import Spinner from '../spinner/Spinner';
 import {SkeletonForCards} from '../skeleton/SkeletonFrame';
 import useJoboredService from '../../services/JoboredService';
 import './jobFavorites.scss';
@@ -92,7 +91,7 @@ const JobFavorites = (props) => {
                     className="job__item"
                     key={item.id}
                 >
-                    <Link to={'/description'}>
+                    <Link to={`/${item.id}`}>
                         <span className="job__title">{item.vacancy}</span> 
                     </Link>
                     
@@ -147,9 +146,6 @@ const JobFavorites = (props) => {
     }
 
     const items = renderItems(preRenderItems(favList, props.page));
-
-
-    // const spinner = loading && !newItemLoading ? <Spinner/> : null;
 
 
     if (localStorage.getItem('favoritesIds')) {

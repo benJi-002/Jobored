@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import useJoboredService from "../../../services/JoboredService";
 
@@ -10,22 +10,46 @@ import JobPagination from "../../jobPagination/JobPagination";
 import './jobSearchPage.scss';
 
 const JobSearchPage = () => {
+
+    const locSearchVal = localStorage.cache ? JSON.parse(localStorage.cache).locSearchVal : '',
+          locSelectVal = localStorage.cache ? JSON.parse(localStorage.cache).locSelectVal : '',
+          locForVal = localStorage.cache ? JSON.parse(localStorage.cache).locForVal : '',
+          locToVal = localStorage.cache ? JSON.parse(localStorage.cache).locToVal : '',
+          locCatalogueKey = localStorage.cache ? JSON.parse(localStorage.cache).locCatalogueKey : 0,
+          locFilterLoaded = localStorage.cache ? JSON.parse(localStorage.cache).locFilterLoaded : false,
+          locPage = localStorage.cache ? JSON.parse(localStorage.cache).locPage + 1 : 1;
+
     const [jobsList, setJobsList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
     const [pagesCount, setPagesCount] = useState(125)
 
-    const [searchInputVal, setSearchInputVal] = useState('');
-    const [selectVal, setSelectVal] = useState('');
-    const [firstInputVal, setFirstInputVal] = useState('');
-    const [secondInputVal, setSecondInputVal] = useState('');
+    const [searchInputVal, setSearchInputVal] = useState(locSearchVal);
+    const [selectVal, setSelectVal] = useState(locSelectVal);
+    const [firstInputVal, setFirstInputVal] = useState(locForVal);
+    const [secondInputVal, setSecondInputVal] = useState(locToVal);
     const [cataloguesList, setCataloguesList] = useState([]);
-    const [catalogueKey, setCatalogueKey] = useState(0);
+    const [catalogueKey, setCatalogueKey] = useState(locCatalogueKey);
 
-    const [filterLoaded, setFilterLoaded] = useState(false);
+    const [filterLoaded, setFilterLoaded] = useState(locFilterLoaded);
 
-    const [selectedPage, setSelectedPage] = useState(1);
+    const [selectedPage, setSelectedPage] = useState(locPage);
 
     const {loading, getAllVacancies} = useJoboredService();
+    
+    useEffect(() => { 
+        localStorage.cache = JSON.stringify(
+            {
+                locPage: selectedPage - 1,
+                locSelectVal: selectVal,
+                locCatalogueKey: catalogueKey,
+                locForVal: firstInputVal,
+                locToVal: secondInputVal,
+                locSearchVal: searchInputVal,
+                locFilterLoaded: filterLoaded
+            }
+        );
+
+    }, [selectedPage, catalogueKey, firstInputVal, secondInputVal, searchInputVal]);
 
     const onPageSelectedFromMain = (page) => {
         setSelectedPage(page)
@@ -49,17 +73,34 @@ const JobSearchPage = () => {
 
         setJobsList(jobsList => [...response[0]]);
         onChangeCountPages(response[1]);
-        console.log(response[1])
         setNewItemLoading(newItemLoading => false);
     }
 
     const onUseFilter = () => {
         setSelectedPage(page => 1);
         onRequest(true, selectedPage - 1, +firstInputVal, +secondInputVal, catalogueKey, searchInputVal);
-        setFilterLoaded(filterLoaded => true)
+        
+        if (searchInputVal || selectVal || firstInputVal || secondInputVal) {
+            setFilterLoaded(filterLoaded => true)
+        } else {
+            setFilterLoaded(filterLoaded => false)
+        }
+
         window.scrollTo(0, 0);
     }
-
+    
+    const OnClearAll = (clSelect, clCatalogueKey, clFirstInput, clSecondInput, clSelectedPage, clSearch, clFilterLoaded) => {
+        clSelect(select => '');
+        clCatalogueKey(key => 0);
+        clFirstInput(firstInput => '');
+        clSecondInput(secondInput => '');
+        clSelectedPage(page => 1);
+        clSearch(searchInputVal => '');
+        clFilterLoaded(filterLoaded => false); 
+        
+        onRequest(true, selectedPage - 1);
+        window.scrollTo(0, 0);
+    }
 
     return (
         <div className="job__content">
@@ -77,8 +118,10 @@ const JobSearchPage = () => {
                 setFilterLoaded={setFilterLoaded}
                 onRequest={onRequest}
                 selectedPage={selectedPage}
+                setSelectedPage={setSelectedPage}
                 setSearchInputVal={setSearchInputVal}
-                />
+                OnClearAll={OnClearAll}
+            />
             <div className="job__content-wrapper">
                 <JobSearchBar
                     searchInputVal={searchInputVal}

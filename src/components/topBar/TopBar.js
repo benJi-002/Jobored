@@ -1,30 +1,36 @@
-import { useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom'
 
-import useJoboredService from '../../services/JoboredService';
 import './topBar.scss';
 
 import jobored from '../../resources/jobored.svg';
 import logo from '../../resources/union.svg';
 
-const TopBar = () => {
+const TopBar = (props) => {
 
-    // const {getAuthorization} = useJoboredService();
-    
-    // useEffect(() => {
-    //     getAuthorization()
-    //         .then(onAuthorization);
-    // }, [])
+    const onRestart = () => {
+        localStorage.cache = JSON.stringify(
+            {
+                locPage: 0,
+                locSelectVal: '',
+                locCatalogueKey: 0,
+                locForVal: '',
+                locToVal: '',
+                locSearchVal: '',
+                locFilterLoaded: false,
+            }
+        );
 
-    // const onAuthorization = (token) => {
-    //     localStorage.setItem('_accessToken', token);
-    // }
+        window.location.reload();
+    }
 
     return (
         <header className='topBar__header'>
             <div className="topBar__container">
                 <div className='topBar__logo'>
-                    <Link to={'/'}>
+                    <Link 
+                        to={'/'}
+                        onClick={() => onRestart()} 
+                    >
                         <img className='rotate' src={logo} alt="logotype" />
                         <img className='topBar__logo-text logo' src={jobored} alt="logo-text" />
                     </Link>
@@ -33,7 +39,7 @@ const TopBar = () => {
                     <ul>
                         <li>
                             <NavLink
-                                to="/"
+                                to='/'
                                 className={({ isActive }) => (isActive ? "active" : "")}
                             >
                                 Поиск Вакансий
@@ -41,7 +47,6 @@ const TopBar = () => {
                         </li>
                         <li>
                             <NavLink
-                                end
                                 to='/favorites'
                                 className={({ isActive }) => (isActive ? "active" : "")}
                             >

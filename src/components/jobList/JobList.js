@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-import Spinner from '../spinner/Spinner';
 import empty from '../../resources/balloon_empty_state.svg';
 import location from '../../resources/location.svg';
 import {SkeletonForCards} from '../skeleton/SkeletonFrame';
@@ -18,10 +17,8 @@ const JobList = (props) => {
 
     useEffect(() => {
         if (filterLoaded) {
-            console.log('if')
             onRequest(true, page, +firstInputVal, +secondInputVal, catalogueKey, searchInputVal);
         } else {    
-            console.log('else')
             onRequest(true, page);
         }
     }, [page])
@@ -31,7 +28,6 @@ const JobList = (props) => {
         if (localStorage.getItem('favoritesIds').length && !favItems.length) {
             favItems = onLocalStorageParse((localStorage.getItem('favoritesIds')), favItems);
         }
-
     }, [])    
 
 
@@ -75,7 +71,7 @@ const JobList = (props) => {
                     key={item.id}
                     
                 >
-                    <Link to={`/description/${item.id}`}>
+                    <Link to={`/${item.id}`}>
                         <span className="job__title">{item.vacancy}</span> 
                     </Link>
                     
@@ -114,12 +110,6 @@ const JobList = (props) => {
                     <SkeletonForCards count={4}/>
                 </ul>
             )
-/*         } else if (jobsList === []) {
-            return (
-                <ul className="job__grid" >
-                    <div>{empty}</div>
-                </ul>
-            )    */      
         } else {
             return (
                 <ul className="job__grid" >
@@ -131,11 +121,8 @@ const JobList = (props) => {
 
     const items = renderItems(jobsList);
 
-
-    // const spinner = loading && !newItemLoading ? <Spinner/> : null;
     
     if (jobsList.length === 0 && (!loading && !newItemLoading)) {
-        console.log('empty')
         return (
             <img className='job__empty' src={empty} alt="empty_ballon" />       
         )   
@@ -148,7 +135,5 @@ const JobList = (props) => {
 
     }
 }
-
-
 
 export default JobList;

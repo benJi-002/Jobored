@@ -1,25 +1,21 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { NumberInput, Select, Button } from '@mantine/core';
 
 import useJoboredService from '../../services/JoboredService';
 import './jobFilter.scss';
 
-
-
-
 const JobFilter = (props) => {
-    
-
     
     const arrowRef = useRef([]);
 
     const {getCatalogues} = useJoboredService();
 
-    const {selectVal, setSelectVal, firstInputVal, setFirstInputVal, secondInputVal, setSecondInputVal, cataloguesList, setCataloguesList, setCatalogueKey, onUseFilter, setFilterLoaded, onRequest, selectedPage, setSearchInputVal} = props
+    const {selectVal, setSelectVal, firstInputVal, setFirstInputVal, secondInputVal, setSecondInputVal, cataloguesList, setCataloguesList, setCatalogueKey, onUseFilter, setFilterLoaded, setSelectedPage, setSearchInputVal, OnClearAll} = props;
+
 
     useEffect(() => {
         onRequestForFilter(true);
-    },[])
+    }, [])
 
     const onRequestForFilter = (initial) => {
         getCatalogues()
@@ -28,19 +24,6 @@ const JobFilter = (props) => {
 
     const onCataloguesListLoaded = (cataloguesList) => {
         setCataloguesList([...cataloguesList]);
-    }
-
-
-    const OnClearAll = (clSelect, clCatalogueKey, clFirstInput, clSecondInput) => {
-        clSelect(select => '');
-        clCatalogueKey(key => 0);
-        clFirstInput(firstInput => '');
-        clSecondInput(secondInput => '');
-        
-        setFilterLoaded(filterLoaded => false);
-        setSearchInputVal(searchInputVal => '');
-        onRequest(true, selectedPage - 1);
-        window.scrollTo(0, 0);
     }
     
     const OnChangeArrow = (e) => {
@@ -60,7 +43,7 @@ const JobFilter = (props) => {
 
                 <button 
                     className='job__filter-reset'
-                    onClick={() => OnClearAll(setSelectVal, setCatalogueKey, setFirstInputVal, setSecondInputVal)}
+                    onClick={() => OnClearAll(setSelectVal, setCatalogueKey, setFirstInputVal, setSecondInputVal, setSelectedPage, setSearchInputVal, setFilterLoaded)}
                 >
                     Сбросить все <span>×</span>
                 </button>
