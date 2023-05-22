@@ -15,12 +15,12 @@
     &__item.descr {
 
         &:nth-child(1) {
-            height: 157px;
-    
+            min-height: 157px;
         }
     }
 
     &__title.descr {
+        padding-right: 40px;
         font-weight: 700;
         font-size: 28px;
         color: $black;
@@ -43,45 +43,5 @@
     
     &__location.descr {
         margin: 17px 0 0 2px;
-    }
-
-    
-}
-
-.descr {
-
-    &__title {
-        margin-top: 20px;
-        font-weight: 700;
-        font-size: 20px; 
-        line-height: 20px;
-        color: $black; 
-
-        &:nth-child(1) {
-            margin-top: 0;
-        }
-    }  
-
-    &__list {
-        margin-top: 16px;
-        
-        li {
-            margin-left: 24px;
-            font-weight: 400;
-            font-size: 16px;
-            color: $black;
-            line-height: 22px;
-            position: relative;
-            &::before {
-                content: "";
-                position: absolute;
-                width: 5px;
-                height: 5px;
-                background-color: $black;
-                border-radius: 100%;
-                top: 9px;
-                left: -15px;
-            }
-        }
     }
 }

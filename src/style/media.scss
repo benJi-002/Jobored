@@ -1,0 +1,352 @@
+@media (max-width: 1200px) {
+    .topBar {
+        &__container {
+            width: 940px;
+        }
+
+        &__menu {
+            margin-right: 230px;
+        }
+    }
+
+    .app {
+        max-width: 940px;
+        .job__content {
+            grid-template-columns: 315px 600px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    main {
+        margin-top: 16px;
+    
+    
+    }
+    .topBar {
+        &__container {
+            width: 720px;
+        }
+
+        &__menu {
+            margin-right: 125px;
+        }
+    }
+
+    .app {
+        max-width: 720px;
+        .job {
+            &__content-wrapper {
+                margin-top: 16px;
+            }
+            &__content {
+                grid-template-columns: 720px;
+                justify-items: center
+            }
+
+            &__filter {
+                width: 720px;
+                min-height: 200px;
+                display: grid;
+                &-title_wrapper {
+                    height: 20px;
+                }
+                &-industry {
+                    width: 320px;
+                    position: absolute;
+                    top: 30px;
+                }
+                &-apply {
+                    width: 320px;
+                    position: absolute;
+                    top: 120px;
+                }
+                &-salary {
+                    width: 330px;
+                    position: absolute;
+                    top: 40px;
+                    right: 20px;
+                }
+            }
+
+            &__item {
+                width: 720px;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+
+    .topBar {
+        &__container {
+            width: 540px;
+        }
+
+        &__menu {
+            margin-right: 60px;
+            ul {
+                li {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
+    .app {
+        max-width: 540px;
+        .job {
+            &__content-wrapper {
+                margin-top: 16px;
+            }
+            &__content {
+                grid-template-columns: 540px;
+                justify-items: center
+            }
+
+            &__filter {
+                width: 540px;
+                &-industry {
+                    width: 300px;
+                }
+                &-apply {
+                    width: 300px;
+                }
+                &-salary {
+                    width: 170px;
+                }
+            }
+
+            &__item {
+                width: 540px;
+            }
+
+            &__title {
+                font-size: 18px;
+            }
+
+            &__descr {
+                &-salary {
+                    font-size: 15px;
+                }
+
+                &-schedule {
+                    font-size: 15px;
+                }
+            }
+
+            &__location {
+                &-name {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 576px) {
+
+    .topBar {
+        &__container {
+            max-width: 100%;
+            padding: 0 10px;
+        }
+
+        &__logo {
+            a {
+                width: 130px;
+                .rotate {
+                    margin-top: 6px;
+                    width: 25px;
+                    height: 25px;
+                }
+
+                .logo {
+                    width: 90px;
+                }
+            }
+        }
+
+        &__menu {
+            margin-right: 5px;
+            ul {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                margin-left: 20px;
+                li {
+                    font-size: 12px;
+                    &:nth-child(1) {
+                        margin-bottom: 10px;
+                    }
+                    &:nth-child(2) {
+                        margin-left: 25px;
+                    }
+                }
+            }
+        }
+    }
+
+    .app {
+        max-width: 100%;
+        padding: 0 5px;
+        .job {
+            &__content-wrapper {
+                width: 100%;
+                
+            }
+            &__content {
+                grid-template-columns: 100%;
+            }
+
+            &__filter {
+                max-width: 100%;
+                display: block;
+                &-title_wrapper {
+                    height: 20px;
+                }
+                &-title {
+                    font-size: 18px;
+                }
+                &-reset {
+                    font-size: 12px;
+                    span {
+                        font-size: 14px;
+                    }
+                }
+                &-industry {
+                    width: 100%;
+                    position: inherit;
+                }
+                &-apply {
+                    width: 100%;
+                    position: inherit;
+                }
+                &-salary {
+                    width: 100%;
+                    position: inherit;
+                }
+            }
+            
+            &__list.favorites {
+                width: 100%;
+            }
+            
+            &__list.descr {
+                width: 100%;
+            }
+
+            &__grid {
+                grid-template-rows: repeat(4, minmax(114px, auto));
+            }
+            
+            &__item {
+                width: 100%;
+                padding: 18px;
+
+                &-star {
+                    width: 22px;
+                    height: 22px;
+                    top: 18px;
+                    right: 11px;
+                }
+            }
+
+            &__item.descr:nth-child(1) {
+                min-height: 123px;
+            }
+
+            &__title {
+                font-size: 14px;
+            }
+
+
+            &__descr {
+                gap: 5px;
+                &-salary {
+                    font-size: 11px;
+                }
+
+                &-dot {
+                    width: 3px;
+                    height: 3px;
+                }
+
+                &-schedule {
+                    font-size: 11px;
+                }
+            }
+
+            &__location {
+                &-icon {
+                    width: 13px;
+                }
+                &-name {
+                    font-size: 12px;
+                }
+            }
+
+        }
+        
+        .mantine-Input-input  {
+            &.mantine-16ysjoc, &.mantine-bzw2og{
+                font-size: 11px;
+                padding-right: 40px;
+            }
+
+            &.mantine-uzn42k {
+                font-size: 11px;
+            }
+
+            &.mantine-uzn42k {
+                padding-right: 80px;
+                height: 44px;
+            }
+        }
+
+        .mantine-InputWrapper-label {
+            &.mantine-fdbcsh {
+                margin-top: 20px;
+                font-size: 14px;
+            }
+            &.mantine-djsbgj{
+                font-size: 14px;
+            }
+        }
+        
+        .mantine-12dswh {
+            font-size: 10px;
+        }
+        
+        .mantine-UnstyledButton-root.mantine-Button-root.mantine-133p90y {
+            width: 60px;
+            height: 27px;
+            font-size: 10px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .pag__wrapper {
+            margin-top: 35px;
+        }
+
+        .mantine-Group-root.mantine-1ii6byu {
+            flex-wrap: nowrap;
+        }
+
+        .mantine-UnstyledButton-root.mantine-Pagination-control.mantine-2sv0fp {
+            min-width: 20px;
+            height: 29px;
+        }
+
+        .mantine-UnstyledButton-root.mantine-Pagination-control.mantine-a5vhp6 {
+            min-width: 29px;
+            height: 29px;
+        }
+
+        .mantine-Pagination-dots.mantine-r8lv8l {
+            min-width: 29px;
+            height: 29px;
+        }
+    
+    }
+}

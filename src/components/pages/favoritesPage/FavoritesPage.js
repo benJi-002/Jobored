@@ -12,11 +12,11 @@ const FavoritesPage = () => {
 
     const onPageSelectedFromFavorite = (page) => {
         setSelectedPage(page - 1)
-        // console.log(selectedPage)
+        window.scrollTo(0, 0);
     }
 
     const onSetCountPagesFromFavorite = (count) => {
-        setPageCount(count)
+        setPageCount(count);
     }
 
     return (

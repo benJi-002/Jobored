@@ -10,7 +10,6 @@ const JobPagination = (props) => {
                     props.onPageSelected(value)
                 }}
                 value={props.page}
-                // defaultValue={1}
                 total={props.count}
                 position='center'
                 styles={{
@@ -22,6 +21,13 @@ const JobPagination = (props) => {
                         fontFamily: 'inherit',
                         fontWeight: '400',
                         fontSize: '16px',
+                        transition: 'all .2s ease',
+                        '&[data-active]' : {
+                            backgroundColor: '#5E96FC'
+                        },
+                        '&:hover': {
+                            transition: 'all .2s ease',
+                        },
                     }
                 }}
             />

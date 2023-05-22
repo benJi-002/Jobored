@@ -76,7 +76,7 @@ const JobFilter = (props) => {
                         root: {
                             backgroundColor: '#5E96FC',
                             borderRadius: '8px',
-                            width: '275px',
+                            width: '100%',
                             height: '40px',
                             fontFamily: 'inherit',
                             fontWeight: '500',
@@ -122,6 +122,7 @@ const IndustryInput = (props) => {
                 value={selectVal}
                 placeholder="Выберите отрасль"
                 label="Отрасль"
+                allowDeselect
                 searchable
                 nothingFound="Отрасль отсутствует"
                 dropdownPosition="bottom"
@@ -159,7 +160,7 @@ const IndustryInput = (props) => {
                         fontFamily: 'inherit',
                         fontWeight: '400',
                         fontSize: '14px',
-                        width: '255px',
+                        width: '97%',
                         height: '36px',
                         borderRadius: '8px',
                         lineHeight: '1.55',

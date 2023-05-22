@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import './button';
 
+
 * {
     font-family: 'Inter', sans-serif;
     margin: 0;
@@ -62,3 +63,5 @@ main {
     margin: 40px auto 44px auto;
     position: relative;
 }
+
+@import './media.scss';

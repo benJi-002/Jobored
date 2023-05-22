@@ -7,29 +7,13 @@ import logo from '../../resources/union.svg';
 
 const TopBar = (props) => {
 
-    const onRestart = () => {
-        localStorage.cache = JSON.stringify(
-            {
-                locPage: 0,
-                locSelectVal: '',
-                locCatalogueKey: 0,
-                locForVal: '',
-                locToVal: '',
-                locSearchVal: '',
-                locFilterLoaded: false,
-            }
-        );
-
-        window.location.reload();
-    }
-
     return (
         <header className='topBar__header'>
             <div className="topBar__container">
                 <div className='topBar__logo'>
                     <Link 
                         to={'/'}
-                        onClick={() => onRestart()} 
+                        // onClick={() => onRestart()} 
                     >
                         <img className='rotate' src={logo} alt="logotype" />
                         <img className='topBar__logo-text logo' src={jobored} alt="logo-text" />

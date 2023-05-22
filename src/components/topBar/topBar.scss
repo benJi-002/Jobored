@@ -12,15 +12,24 @@
         justify-content: space-between;
     }
     &__logo {
-        width: 141px;
-        height: 36px;
+        display: flex;
+        align-items: center;
 
         a {
             display: flex;
             justify-content: space-between;
+            width: 140px;
+            height: 36px;
 
             .rotate {
+                margin-top: 3px;
+                width: 30px;
+                height: 30px;
                 transition: all .3s ease;
+            }
+
+            .logo {
+                width: 99px;
             }
             
             &:hover {
