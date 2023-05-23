@@ -17,7 +17,7 @@ const JobFilter = (props) => {
         onRequestForFilter(true);
     }, [])
 
-    const onRequestForFilter = (initial) => {
+    const onRequestForFilter = () => {
         getCatalogues()
             .then(onCataloguesListLoaded)
     }
@@ -29,8 +29,10 @@ const JobFilter = (props) => {
     const OnChangeArrow = (e) => {
         if (arrowRef.current[0].classList.contains('active')) {
             arrowRef.current[0].classList.remove('active');
+
         } else if (e.target === arrowRef.current[1] ) {
             arrowRef.current[0].classList.add('active');
+
         } else {
             arrowRef.current[0].classList.remove('active');
         }
@@ -65,12 +67,14 @@ const JobFilter = (props) => {
                     setFirstInputVal={setFirstInputVal}
                     secondInputVal={secondInputVal}
                     setSecondInputVal={setSecondInputVal}
+                    OnChangeArrow={OnChangeArrow}
                 />
             </div>
 
             <div className='job__filter-apply'>
                 <Button
                     onClick={() => {onUseFilter()}}
+                    data-elem='search-button'
 
                     styles={{
                         root: {
@@ -117,6 +121,7 @@ const IndustryInput = (props) => {
             <Select
                 onChange={(value) => onChangeSelect(value)}
                 ref={el => arrowRef.current[1] = el}
+                data-elem='industry-select'
 
                 data={cataloguesList.map(item => item.catalogues)}
                 value={selectVal}
@@ -194,12 +199,14 @@ const IndustryInput = (props) => {
 const SalaryInput = (props) => {
 
     const clickUp = (state, setState) => {
-        setState(state => +state + 1000)
+        setState(state => +state + 10000)
     }
     
     const clickDown = (state, setState) => {
+
         if (state > 0) {
-            setState(state => +state - 1000)
+            setState(state => +state - 10000)
+            
         } else {
             setState(state => 0)
         }
@@ -211,12 +218,13 @@ const SalaryInput = (props) => {
         <>
             <NumberInput
                 onChange={(value) => {setFirstInputVal(value)}}
+                data-elem='salary-from-input'
                 
                 placeholder="От"
                 label="Оклад"
                 value={firstInputVal}
                 min={0}
-                step={1000}
+                step={10000}
                 rightSection={
                     <div className='job__filter-salary_arrows'>
 
@@ -268,14 +276,16 @@ const SalaryInput = (props) => {
                         color: '#232134',
                     }
                 }}
-                />
+            />
+
             <NumberInput
                 onChange={(value) => {setSecondInputVal(value)}}
+                data-elem='salary-to-input'
 
                 placeholder="До"
                 value={secondInputVal}
                 min={0}
-                step={1000}
+                step={10000}
                 rightSection={
                     <div className='job__filter-salary_arrows'>
 

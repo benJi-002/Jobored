@@ -11,7 +11,7 @@ const FavoritesPage = () => {
     const [selectedPage, setSelectedPage] = useState(0);
 
     const onPageSelectedFromFavorite = (page) => {
-        setSelectedPage(page - 1)
+        setSelectedPage(page - 1);
         window.scrollTo(0, 0);
     }
 

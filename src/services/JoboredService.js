@@ -157,7 +157,7 @@ const useJoboredService = () => {
         }
     }
 
-    return {getAuthorization, getAllVacancies, getVacancyById, getCatalogues, /* getJobDescription, */ loading, error, clearError}
+    return {getAuthorization, getAllVacancies, getVacancyById, getCatalogues, loading, error, clearError}
 }
 
 export default useJoboredService;

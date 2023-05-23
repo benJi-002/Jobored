@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { Skeleton } from "@mantine/core";
 
 const SkeletonForCards = (props) => {

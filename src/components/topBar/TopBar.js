@@ -5,7 +5,7 @@ import './topBar.scss';
 import jobored from '../../resources/jobored.svg';
 import logo from '../../resources/union.svg';
 
-const TopBar = (props) => {
+const TopBar = () => {
 
     return (
         <header className='topBar__header'>
@@ -13,7 +13,6 @@ const TopBar = (props) => {
                 <div className='topBar__logo'>
                     <Link 
                         to={'/'}
-                        // onClick={() => onRestart()} 
                     >
                         <img className='rotate' src={logo} alt="logotype" />
                         <img className='topBar__logo-text logo' src={jobored} alt="logo-text" />

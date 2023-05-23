@@ -21,18 +21,18 @@ const JobSearchPage = () => {
 
     const [jobsList, setJobsList] = useState([]);
     const [newItemLoading, setNewItemLoading] = useState(false);
-    const [pagesCount, setPagesCount] = useState(125)
-
+    
     const [searchInputVal, setSearchInputVal] = useState(locSearchVal);
     const [selectVal, setSelectVal] = useState(locSelectVal);
     const [firstInputVal, setFirstInputVal] = useState(locForVal);
     const [secondInputVal, setSecondInputVal] = useState(locToVal);
     const [cataloguesList, setCataloguesList] = useState([]);
     const [catalogueKey, setCatalogueKey] = useState(locCatalogueKey);
-
+    
     const [filterLoaded, setFilterLoaded] = useState(locFilterLoaded);
-
+    
     const [selectedPage, setSelectedPage] = useState(locPage);
+    const [pagesCount, setPagesCount] = useState(125)
 
     const {loading, getAllVacancies} = useJoboredService();
     
@@ -49,7 +49,7 @@ const JobSearchPage = () => {
             }
         );
 
-    }, [selectedPage, catalogueKey, firstInputVal, secondInputVal, searchInputVal, filterLoaded]);
+    }, [selectedPage, selectVal, catalogueKey, firstInputVal, secondInputVal, searchInputVal, filterLoaded]);
 
     const onPageSelectedFromMain = (page) => {
         setSelectedPage(page);
