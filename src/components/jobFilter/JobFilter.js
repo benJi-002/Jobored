@@ -145,7 +145,6 @@ const IndustryInput = (props) => {
                     root: {
                         fontFamily: 'inherit',
                         lineHeight: '0',
-
                     },
                     input: {
                         paddingLeft: '10px',
@@ -190,6 +189,9 @@ const IndustryInput = (props) => {
                         lineHeight: '19px',
                         color: '#232134',
                     },
+                    rightSection: { 
+                        pointerEvents: 'none' 
+                    }
                 }}
             />
         </>
