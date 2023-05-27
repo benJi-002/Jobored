@@ -156,6 +156,10 @@ const IndustryInput = (props) => {
                         border: '1px solid #D5D6DC',
                         borderRadius: '8px',
                         transition: 'all .2s ease',
+                        '&:hover': {
+                            border: '1px solid #5E96FC', 
+                            transition: 'all .2s ease',
+                        }
                     },
                     dropdown: {
                         borderRadius: '8px'
