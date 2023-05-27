@@ -87,6 +87,7 @@ const JobSearchPage = () => {
 
         } else {
             setFilterLoaded(filterLoaded => false);
+            setCatalogueKey(catalogueKey => 0);
         }
         
 

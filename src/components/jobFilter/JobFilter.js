@@ -109,11 +109,16 @@ const IndustryInput = (props) => {
     }
 
     const onChangeCatalogueKey = (value) => {
-        cataloguesList.forEach((item) => { 
-            if (item.catalogues === value) {
-                setCatalogueKey(key => item.key)
-            }
-        });
+        if (value) {
+            cataloguesList.forEach((item) => { 
+                if (item.catalogues === value) {
+                    setCatalogueKey(key => item.key);
+                }
+            });
+
+        } else {
+            setCatalogueKey(key => 0);
+        } 
     }
 
     return (
