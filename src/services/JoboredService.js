@@ -34,13 +34,14 @@ const useJoboredService = () => {
         );
     }
 
-    const _apiBase = 'https://api.superjob.ru/2.0',
-    _login = 'login=4478689',
-    _password = 'password=SD9456CP',
-    _clienId = 'client_id=2534',
-    _xApiAppId = 'v3.h.4478689.8fa7f23475316f5a65800a1bc764d5fd8e6300ef.b573fe9e1764e3bb67fbc1e54c11e2e1a909282a',
+    const _apiBase = 'https://startup-summer-2023-proxy.onrender.com/2.0',
+    _login = 'login=sergei.stralenia@gmail.com',
+    _password = 'password=paralect123',
+    _clienId = 'client_id=2356',
+    _xApiAppId = 'v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948',
     _clientSecret = `client_secret=${_xApiAppId}`,
     _hr = 'hr=0',
+    _xSecretKey = 'GEU4nvd3rej*jeh.eqp',
     _authorization = `Bearer ${JSON.parse(localStorage.autorization).accessToken}`;
     
 
@@ -50,6 +51,7 @@ const useJoboredService = () => {
             'GET', null, 
             {
                 'Content-Type': 'application/json', 
+                'x-secret-key': `${_xSecretKey}`
             });
 
         console.log(res)
@@ -69,6 +71,7 @@ const useJoboredService = () => {
         'GET', null, 
             {
                 'Content-Type': 'application/json', 
+                'x-secret-key': `${_xSecretKey}`, 
                 Authorization: `${_authorization}`,
                 'X-Api-App-Id': `${_xApiAppId}`
             });
@@ -83,6 +86,7 @@ const useJoboredService = () => {
         'GET', null, 
             {
                 'Content-Type': 'application/json', 
+                'x-secret-key': `${_xSecretKey}`, 
                 Authorization: `${_authorization}`,
                 'X-Api-App-Id': `${_xApiAppId}`
             });
@@ -97,6 +101,7 @@ const useJoboredService = () => {
         'GET', null, 
             {
                 'Content-Type': 'application/json', 
+                'x-secret-key': `${_xSecretKey}`, 
                 Authorization: `${_authorization}`,
                 'X-Api-App-Id': `${_xApiAppId}`
             });
