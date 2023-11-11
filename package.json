@@ -2,6 +2,7 @@
   "name": "jobored",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://benJi-002.github.io/Jobored",
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@mantine/core": "^6.0.9",
