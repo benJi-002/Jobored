@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/Jobored/static/css/main.3dc85882.chunk.css",
-    "main.js": "/Jobored/static/js/main.71fdf52c.chunk.js",
-    "main.js.map": "/Jobored/static/js/main.71fdf52c.chunk.js.map",
+    "main.js": "/Jobored/static/js/main.815b8840.chunk.js",
+    "main.js.map": "/Jobored/static/js/main.815b8840.chunk.js.map",
     "runtime-main.js": "/Jobored/static/js/runtime-main.fa0f2abb.js",
     "runtime-main.js.map": "/Jobored/static/js/runtime-main.fa0f2abb.js.map",
     "static/js/2.e83e8b8a.chunk.js": "/Jobored/static/js/2.e83e8b8a.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.fa0f2abb.js",
     "static/js/2.e83e8b8a.chunk.js",
     "static/css/main.3dc85882.chunk.css",
-    "static/js/main.71fdf52c.chunk.js"
+    "static/js/main.815b8840.chunk.js"
   ]
 }
