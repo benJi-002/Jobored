@@ -7,8 +7,8 @@ const useJoboredService = () => {
     if (!localStorage.autorization) {
         localStorage.autorization = JSON.stringify(
             {
-                accessToken: 'v3.r.137440105.ebb074038d4a612e22fcb58e4d00434dfccc78b2.170dd2ac1160c09e0a8e7e22ec35d4603480ff27',
-                ttl: 1685350364
+                accessToken: 'v3.h.4478689.fe5f7fae0fd29051d96c89d10c951af73ebe4008.55b652556741628ce9f4be5c8d29abbd75b2e72a',
+                ttl: 1687459430
             }
         );
     }
@@ -25,7 +25,7 @@ const useJoboredService = () => {
         }
     }, []);
     
-    const onSetAuthorization = (token) => {
+    function onSetAuthorization(token) {
         localStorage.autorization = JSON.stringify(
             {
                 accessToken: token[0],
@@ -46,7 +46,7 @@ const useJoboredService = () => {
     
 
         
-    const getAuthorization = async () => {
+    async function getAuthorization() {
         const res = await request(`${_apiBase}/oauth2/password/?${_login}&${_password}&${_clienId}&${_clientSecret}&${_hr}`, 
             'GET', null, 
             {
