@@ -20,6 +20,7 @@ const JobFavorites = (props) => {
     let favItems = [];
     
     useEffect(() => {
+
         if (localStorage.getItem('favoritesIds').length && !favItems.length) {
             favItems = onLocalStorageParse((localStorage.getItem('favoritesIds')), favItems);
         }
@@ -35,10 +36,10 @@ const JobFavorites = (props) => {
     const onRequest = (favIds, initial) => {
         initial ? setNewItemLoading(false) : setNewItemLoading(true)
         
-        favIds.forEach(item => getVacancyById(item).then(onComicsListLoaded));
+        favIds.forEach(item => getVacancyById(item).then(onFavoritesListLoaded));
     }
         
-    const onComicsListLoaded = (newFavItem) => {
+    const onFavoritesListLoaded = (newFavItem) => {
         setFavList(favList => [...favList, newFavItem]);
         setNewItemLoading(newItemLoading => false);
     }
@@ -48,26 +49,26 @@ const JobFavorites = (props) => {
             .replace(/[,]+/g, " ")
             .split(' ');
         list = list.map(item => Number(item));
-        
+
         return list;
     }
 
     const favoriteOnItem = (id) => {
-        
+
         if (localStorage.getItem('favoritesIds').length && !favItems.length) {
             favItems = onLocalStorageParse((localStorage.getItem('favoritesIds')), favItems);
         }
 
         if ( itemRefs.current[id].classList.contains('active')) {
             itemRefs.current[id].classList.remove('active');
-
-            favItems = favItems.filter((remote) => remote !== id );
+            
+            favItems = favItems.filter((remote) => remote !== +id );
             localStorage.setItem('favoritesIds', favItems);
-
+            
         } else {
             itemRefs.current[id].classList.add('active');
 
-            favItems.push(id);
+            favItems.push(+id);
             localStorage.setItem('favoritesIds', favItems);
         }
     }

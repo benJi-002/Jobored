@@ -10,7 +10,7 @@ const JobFilter = (props) => {
 
     const {getCatalogues} = useJoboredService();
 
-    const {selectVal, setSelectVal, firstInputVal, setFirstInputVal, secondInputVal, setSecondInputVal, cataloguesList, setCataloguesList, setCatalogueKey, onUseFilter, setFilterLoaded, setSelectedPage, setSearchInputVal, OnClearAll} = props;
+    const {selectVal, setSelectVal, firstInputVal, setFirstInputVal, cataloguesList, setCataloguesList, setCatalogueKey, onUseFilter, setFilterLoaded, setSelectedPage, setSearchInputVal, OnClearAll} = props;
 
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const JobFilter = (props) => {
 
                 <button 
                     className='job__filter-reset'
-                    onClick={() => OnClearAll(setSelectVal, setCatalogueKey, setFirstInputVal, setSecondInputVal, setSelectedPage, setSearchInputVal, setFilterLoaded)}
+                    onClick={() => OnClearAll(setSelectVal, setCatalogueKey, setFirstInputVal, setSelectedPage, setSearchInputVal, setFilterLoaded)}
                 >
                     Сбросить все <span>×</span>
                 </button>
@@ -65,8 +65,6 @@ const JobFilter = (props) => {
                 <SalaryInput 
                     firstInputVal={firstInputVal}
                     setFirstInputVal={setFirstInputVal}
-                    secondInputVal={secondInputVal}
-                    setSecondInputVal={setSecondInputVal}
                     OnChangeArrow={OnChangeArrow}
                 />
             </div>
@@ -167,14 +165,17 @@ const IndustryInput = (props) => {
                         }
                     },
                     dropdown: {
+                        wordWrap: 'break-word',
+                        textAlign: 'center',
                         borderRadius: '8px'
                     },
                     item: {
+                        wordWrap: 'break-word',
                         fontFamily: 'inherit',
                         fontWeight: '400',
                         fontSize: '14px',
                         width: '97%',
-                        height: '36px',
+                        // height: '36px',
                         borderRadius: '8px',
                         lineHeight: '1.55',
                         '&:hover': {
@@ -210,20 +211,20 @@ const IndustryInput = (props) => {
 const SalaryInput = (props) => {
 
     const clickUp = (state, setState) => {
-        setState(state => +state + 10000)
+        setState(state => +state + 100)
     }
     
     const clickDown = (state, setState) => {
 
         if (state > 0) {
-            setState(state => +state - 10000)
+            setState(state => +state - 100)
             
         } else {
             setState(state => 0)
         }
     }
 
-    const {firstInputVal, setFirstInputVal, secondInputVal, setSecondInputVal} = props;
+    const {firstInputVal, setFirstInputVal} = props;
 
     return (
         <>
@@ -289,64 +290,6 @@ const SalaryInput = (props) => {
                 }}
             />
 
-            <NumberInput
-                onChange={(value) => {setSecondInputVal(value)}}
-                data-elem='salary-to-input'
-
-                placeholder="До"
-                value={secondInputVal}
-                min={0}
-                step={10000}
-                rightSection={
-                    <div className='job__filter-salary_arrows'>
-
-                        <svg onClick={() => clickUp(secondInputVal, setSecondInputVal)} width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.50006 4.5L5.39054 1.83469C5.16584 1.6421 4.83428 1.6421 4.60959 1.83469L1.50006 4.5" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
-                        </svg>
-
-                        <svg onClick={() => clickDown(secondInputVal, setSecondInputVal)} width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M1.49994 1.5L4.60946 4.16531C4.83416 4.3579 5.16572 4.3579 5.39041 4.16531L8.49994 1.5" stroke="#ACADB9" strokeWidth="1.5" strokeLinecap="round"/>
-                        </svg>
-
-                    </div>  
-                }
-                rightSectionWidth={36}
-
-                styles={{
-                    root: {
-                        fontFamily: 'inherit',
-                        lineHeight: '0',
-                    },
-                    input: {
-                        paddingLeft: '10px',
-                        marginTop: '8px',
-                        height: '42px',
-                        fontFamily: 'inherit',
-                        fontWeight: '400',
-                        fontSize: '14px',
-                        border: '1px solid #D5D6DC',
-                        borderRadius: '8px',
-                        transition: 'all .2s ease',
-                        '&:hover': {
-                            border: '1px solid #5E96FC', 
-                            transition: 'all .2s ease',
-                        }
-                    },
-                    item: {
-                        fontFamily: 'inherit',
-                        fontWeight: '400',
-                        fontSize: '14px',
-                        width: '255px',
-                        lineHeight: '1.55',
-                    },
-                    label: {
-                        fontWeight: '700',
-                        fontSize: '16px',
-                        lineHeight: '19px',
-                        color: '#232134',
-                    },
-                }}
-            />
         </>
     )
 }

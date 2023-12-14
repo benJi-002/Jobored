@@ -9,7 +9,7 @@ import './jobList.scss';
 
 const JobList = (props) => {
     
-    const {jobsList, newItemLoading, onRequest, loading, page, firstInputVal, secondInputVal, catalogueKey, filterLoaded, searchInputVal} = props;
+    const {jobsList, newItemLoading, onRequest, loading, page, firstInputVal, catalogueKey, filterLoaded, searchInputVal} = props;
     
     const itemRefs = useRef([]);
 
@@ -17,7 +17,7 @@ const JobList = (props) => {
 
     useEffect(() => {
         if (filterLoaded) {
-            onRequest(true, page, +firstInputVal, +secondInputVal, catalogueKey, searchInputVal, (+firstInputVal || +secondInputVal) ? true : false);
+            onRequest(true, page, +firstInputVal, catalogueKey, searchInputVal, firstInputVal ? true : false);
         } else {    
             onRequest(true, page);
         }
@@ -25,9 +25,11 @@ const JobList = (props) => {
     
 
     useEffect(() => {
+
         if (localStorage.getItem('favoritesIds').length && !favItems.length) {
             favItems = onLocalStorageParse((localStorage.getItem('favoritesIds')), favItems);
         }
+
     }, [])    
 
 
@@ -49,15 +51,17 @@ const JobList = (props) => {
         if ( itemRefs.current[id].classList.contains('active')) {
             itemRefs.current[id].classList.remove('active');
             
-            favItems = favItems.filter((remote) => remote !== id );
+            favItems = favItems.filter((remote) => remote !== +id );
             localStorage.setItem('favoritesIds', favItems);
             
         } else {
             itemRefs.current[id].classList.add('active');
 
-            favItems.push(id);
+            favItems.push(+id);
             localStorage.setItem('favoritesIds', favItems);
         }
+
+
     }
     
     const limitWords = (name) => {

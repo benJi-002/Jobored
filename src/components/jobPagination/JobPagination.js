@@ -7,7 +7,7 @@ const JobPagination = (props) => {
     return (
             <Pagination 
                 onChange={(value) => {
-                    props.onPageSelected(value)
+                    props.onPageSelected(value);
                 }}
                 value={props.page}
                 total={props.count}

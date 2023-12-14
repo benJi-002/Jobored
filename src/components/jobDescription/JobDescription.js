@@ -83,12 +83,12 @@ const LittleCard = ({jobDescr}) => {
         if ( itemRef.current[id].classList.contains('active')) {
             itemRef.current[id].classList.remove('active');
             
-            favItem = favItem.filter((remote) => remote !== id );
+            favItem = favItem.filter((remote) => remote !== +id );
             localStorage.setItem('favoritesIds', favItem);
         } else {
             itemRef.current[id].classList.add('active');
 
-            favItem.push(id);
+            favItem.push(+id);
             localStorage.setItem('favoritesIds', favItem);
         }
     }

@@ -4,80 +4,32 @@ import { useHttp } from "../hooks/http.hook";
 const useJoboredService = () => {
     const {loading, request, error, clearError} = useHttp();
     
-    if (!localStorage.autorization) {
-        localStorage.autorization = JSON.stringify(
-            {
-                accessToken: 'v3.h.4478689.fe5f7fae0fd29051d96c89d10c951af73ebe4008.55b652556741628ce9f4be5c8d29abbd75b2e72a',
-                ttl: 1687459430
-            }
-        );
-    }
-    
     useEffect(() => {
 
         if (!localStorage.favoritesIds) {
             localStorage.setItem('favoritesIds', []);
         }
 
-        if (JSON.parse(localStorage.autorization).ttl < (Date.now() / 1000)) {
-            getAuthorization()
-                .then(onSetAuthorization);
-        }
     }, []);
-    
-    function onSetAuthorization(token) {
-        localStorage.autorization = JSON.stringify(
-            {
-                accessToken: token[0],
-                ttl: token[1]
-            }
-        );
-    }
 
-    const _apiBase = 'https://startup-summer-2023-proxy.onrender.com/2.0',
-    _login = 'login=sergei.stralenia@gmail.com',
-    _password = 'password=paralect123',
-    _clienId = 'client_id=2356',
-    _xApiAppId = 'v3.r.137440105.ffdbab114f92b821eac4e21f485343924a773131.06c3bdbb8446aeb91c35b80c42ff69eb9c457948',
-    _clientSecret = `client_secret=${_xApiAppId}`,
-    _hr = 'hr=0',
-    _xSecretKey = 'GEU4nvd3rej*jeh.eqp',
-    _authorization = `Bearer ${JSON.parse(localStorage.autorization).accessToken}`;
-    
+    const _apiBase = 'https://api.hh.ru';
 
+
+    const getAllVacancies = async (page, from, key, keyword, agreement) => {
         
-    async function getAuthorization() {
-        const res = await request(`${_apiBase}/oauth2/password/?${_login}&${_password}&${_clienId}&${_clientSecret}&${_hr}`, 
-            'GET', null, 
-            {
-                'Content-Type': 'application/json', 
-                'x-secret-key': `${_xSecretKey}`
-            });
+        from = from ? `&salary=${from}` : '';
+        key = key ? `&industry=${key}` : '';
+        keyword = keyword ? `&text=${keyword}` : '';
+        agreement = agreement ? `&only_with_salary=true` : '';
 
-        console.log(res)
-
-        return [res.access_token, res.ttl]
-    }
-
-    const getAllVacancies = async (page, from, to, key, keyword, agreement) => {
-
-        from = from ? `&payment_from=${from}` : '';
-        to = to ? `&payment_to=${to}` : '';
-        key = key ? `&catalogues=${key}` : '';
-        keyword = keyword ? `&keyword=${keyword}` : '';
-        agreement = agreement ? `&no_agreement=1` : '';
-
-        const res = await request(`${_apiBase}/vacancies/?page=${page}&count=4&published=1${agreement}${from}${to}${key}${keyword}`, 
+        const res = await request(`${_apiBase}/vacancies/?page=${page - 1}&per_page=4&area=16${agreement}${from}&currency=BYR${key}${keyword}`, 
         'GET', null, 
             {
-                'Content-Type': 'application/json', 
-                'x-secret-key': `${_xSecretKey}`, 
-                Authorization: `${_authorization}`,
-                'X-Api-App-Id': `${_xApiAppId}`
+                'Content-Type': 'application/json'
             });
 
 
-        return [res.objects.map(_transformJobData), res.total]
+        return [res.items.map(_transformJobData), res.pages]
     }
 
 
@@ -85,10 +37,7 @@ const useJoboredService = () => {
         const res = await request(`${_apiBase}/vacancies/${id}`, 
         'GET', null, 
             {
-                'Content-Type': 'application/json', 
-                'x-secret-key': `${_xSecretKey}`, 
-                Authorization: `${_authorization}`,
-                'X-Api-App-Id': `${_xApiAppId}`
+                'Content-Type': 'application/json',
             });
 
 
@@ -97,13 +46,10 @@ const useJoboredService = () => {
 
 
     const getCatalogues = async () => {
-        const res = await request(`${_apiBase}/catalogues/`, 
+        const res = await request(`${_apiBase}/industries`, 
         'GET', null, 
             {
-                'Content-Type': 'application/json', 
-                'x-secret-key': `${_xSecretKey}`, 
-                Authorization: `${_authorization}`,
-                'X-Api-App-Id': `${_xApiAppId}`
+                'Content-Type': 'application/json'
             });
 
         return  res.map(_transformCataloguesData)
@@ -112,52 +58,70 @@ const useJoboredService = () => {
 
     const _transformCataloguesData = (catalogues) => {
 
-        const limForCatalogues = (catalogues, trim) => {
+        const limForCatalogues = (catalogues) => {
 
-            const maxLength = 30;
+            const limitLetterPerField = Math.floor(document.querySelector('.job__filter-industry').offsetWidth / 9.2);
 
-            if (catalogues.length > maxLength) {
-                return trim;
-            } else {
-                return catalogues;
-            }
+            let arrCatalogues = catalogues.split(' ');
+            let lengthLine = 0;
+            let index = 0;
+
+            arrCatalogues.forEach(element => {
+                lengthLine += element.length;
+
+                if (lengthLine >= limitLetterPerField) {
+
+                    arrCatalogues[index - 1] +='\n';
+                    lengthLine = element.length; 
+                }
+
+                index++;
+            });
+
+            index = 0;
+            lengthLine = 0;
+    
+            return arrCatalogues.join(' ');
         }
 
         return {
-            key: catalogues.key,
-            catalogues: limForCatalogues(catalogues.title_rus, catalogues.title_trimmed),
-            catalogues_trimmed: catalogues.title_trimmed,
+            key: catalogues.id,
+            catalogues: limForCatalogues(catalogues.name)
         }
     }
 
     const _transformJobData = (job) => {
 
         const salaryDisplay = (from, to, curr) => {
-            if (from === 0 && to === 0) {
+            if (from === null && to === null) {
                 return `з/п не указана`
-            } else if (from === to || from === 0) {
+            } else if (from === to || from === null) {
                 return `з/п ${to} ${curr}`
             } else if (from < to) {
                 return `з/п ${from} - ${to} ${curr}`
-            } else if (to === 0) {
+            } else if (to === null) {
                 return `з/п от ${from} ${curr}`
             }
         }
 
         return {
             id: job.id,
-            vacancy: job.profession,
-            city: job.town.title,
-            employment: job.type_of_work.title,
-            firm: job.firm_name,
-            from: job.payment_from,
-            to: job.payment_to,
-            salary: salaryDisplay(job.payment_from, job.payment_to, job.currency),
-            description: job.vacancyRichText ? job.vacancyRichText : 'Описание отсутствует'
+            vacancy: job.name,
+            city: job.area.name,
+            employment: job.employment.name,
+            firm: job.employer.name,
+            // from: job.salary ? job.salary.from : 0,
+            // to: job.salary ? job.salary.to : 0,
+            salary: salaryDisplay(
+                job.salary ? job.salary.from : null, 
+                job.salary ? job.salary.to : null, 
+                job.salary ? job.salary.currency : ''
+            ),
+            description: job.description ? job.description : 'Описание отсутствует'
         }
     }
 
-    return {getAuthorization, getAllVacancies, getVacancyById, getCatalogues, loading, error, clearError}
+    return {getAllVacancies, getVacancyById, getCatalogues, loading, error, clearError}
 }
 
 export default useJoboredService;
