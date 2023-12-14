@@ -165,17 +165,13 @@ const IndustryInput = (props) => {
                         }
                     },
                     dropdown: {
-                        wordWrap: 'break-word',
-                        textAlign: 'center',
-                        borderRadius: '8px'
+                        borderRadius: '8px',
                     },
                     item: {
-                        wordWrap: 'break-word',
                         fontFamily: 'inherit',
                         fontWeight: '400',
                         fontSize: '14px',
                         width: '97%',
-                        // height: '36px',
                         borderRadius: '8px',
                         lineHeight: '1.55',
                         '&:hover': {
